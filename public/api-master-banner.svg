@@ -1,0 +1,31 @@
+<svg width="1200" height="300" viewBox="0 0 1200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <rect width="1200" height="300" rx="12" fill="url(#paint0_linear)" />
+  
+  <!-- Logo cube icon -->
+  <g transform="translate(100, 110) scale(2.5)">
+    <path d="M40 12.8L20 0L0 12.8V38.2L20 51L40 38.2V12.8Z" fill="#3B82F6"/>
+    <path d="M20 0V25.4L40 38.2V12.8L20 0Z" fill="#1D4ED8"/>
+    <path d="M0 12.8V38.2L20 25.4V0L0 12.8Z" fill="#2563EB"/>
+    <path d="M20 51V25.4L0 38.2L20 51Z" fill="#1E40AF"/>
+    <path d="M20 51V25.4L40 38.2L20 51Z" fill="#1E3A8A"/>
+  </g>
+  
+  <!-- API-Master Text -->
+  <text x="240" y="170" font-family="'Inter', sans-serif" font-weight="800" font-size="80" fill="white">
+    API-Master
+  </text>
+  
+  <!-- Tagline -->
+  <text x="245" y="210" font-family="'Inter', sans-serif" font-weight="500" font-size="24" fill="#E0E7FF">
+    Modern API Key Management System
+  </text>
+  
+  <!-- Gradient definition -->
+  <defs>
+    <linearGradient id="paint0_linear" x1="0" y1="0" x2="1200" y2="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#1E40AF"/>
+    </linearGradient>
+  </defs>
+</svg> 

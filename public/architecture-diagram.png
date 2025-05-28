@@ -1,0 +1,12 @@
+
+API-Master Architecture Diagram
+------------------------------
+This is a placeholder for the API-Master architecture diagram.
+
+For a production deployment, replace this file with an actual architecture
+diagram showing the three-tier architecture:
+1. Client Layer (Next.js, React, Tailwind CSS)
+2. Service Layer (API Key Service, Supabase Client)
+3. Data Layer (PostgreSQL Database, Row-Level Security)
+
+The recommended dimensions are 800x500 pixels.
