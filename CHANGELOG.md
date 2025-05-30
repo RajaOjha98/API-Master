@@ -12,18 +12,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Detailed architecture diagrams with Mermaid support
 - Technical deep dive documentation
 - Project changelog for tracking changes
+- Deployment guide (DEPLOYMENT.md) with Vercel setup instructions
+- Build-time protection for Supabase client initialization
 
 ### Changed
 - Updated package.json project name from "cursor_app_1" to "api-master"
 - Enhanced README.md with project analysis section
 - Updated repository clone URL in documentation
 - Improved table of contents structure
+- Fixed Supabase client initialization to prevent build errors
+- Added environment variable fallbacks for build-time safety
+- Improved error handling in API services
+
+### Fixed
+- **Critical**: Fixed Vercel deployment build error "supabaseUrl is required"
+- Added client-side checks to prevent server-side Supabase calls
+- Protected all Supabase operations with configuration validation
+- Removed deprecated swcMinify option from Next.js config
+- Added proper environment variable handling for deployment
 
 ### Documentation
 - Added comprehensive technical analysis document
 - Enhanced README.md with better project structure explanation
 - Added links to analysis document in main README
 - Improved installation instructions with correct repository URL
+- Created detailed deployment guide for Vercel and other platforms
+- Added troubleshooting section for common deployment issues
 
 ## [0.1.0] - 2024-01-XX
 

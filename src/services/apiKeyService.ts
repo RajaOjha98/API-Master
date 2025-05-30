@@ -1,4 +1,4 @@
-import { supabase, ApiKey } from '@/lib/supabase';
+import { supabase, ApiKey, isSupabaseConfigured } from '@/lib/supabase';
 
 /**
  * Service to handle all API key operations with Supabase
@@ -9,6 +9,12 @@ export const apiKeyService = {
    */
   async getAllApiKeys(): Promise<ApiKey[]> {
     console.log('Attempting to fetch API keys from Supabase...');
+    
+    if (!isSupabaseConfigured()) {
+      console.warn('Supabase is not properly configured. Returning empty array.');
+      return [];
+    }
+    
     try {
       const { data, error } = await supabase
         .from('api_keys')

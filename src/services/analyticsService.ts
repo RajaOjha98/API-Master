@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 
 /**
  * Interface for analytics data
@@ -35,6 +35,11 @@ export const analyticsService = {
    * Get analytics data for the dashboard
    */
   async getAnalyticsData(): Promise<AnalyticsData> {
+    if (!isSupabaseConfigured()) {
+      console.warn('Supabase is not properly configured. Returning default analytics.');
+      return defaultAnalytics;
+    }
+    
     try {
       // Start measuring response time
       const startTime = performance.now();

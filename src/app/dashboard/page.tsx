@@ -6,7 +6,7 @@ import { Header } from "@/components/dashboard/Header";
 import { ApiKeyTable } from "@/components/dashboard/ApiKeyTable";
 import { ApiKeyModal } from "@/components/dashboard/ApiKeyModal";
 import { Notifications } from "@/components/dashboard/Notifications";
-import { supabase } from "@/lib/supabase";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { apiKeyService } from "@/services/apiKeyService";
 import { useAnalytics } from "@/context/AnalyticsContext";
 
@@ -59,14 +59,16 @@ export default function Dashboard() {
   React.useEffect(() => {
     fetchApiKeys();
     
-    // Test Supabase connection
-    supabase.auth.getSession().then(({ data, error }) => {
-      if (error) {
-        console.error('Supabase connection error:', error);
-      } else {
-        console.log('Supabase connected successfully');
-      }
-    });
+    // Test Supabase connection only if properly configured
+    if (isSupabaseConfigured()) {
+      supabase.auth.getSession().then(({ data, error }) => {
+        if (error) {
+          console.error('Supabase connection error:', error);
+        } else {
+          console.log('Supabase connected successfully');
+        }
+      });
+    }
   }, []);
 
   // Clear notifications after 2 seconds
@@ -175,6 +177,11 @@ export default function Dashboard() {
 
   // Delete API key from Supabase
   const handleDelete = async (id: number) => {
+    if (!isSupabaseConfigured()) {
+      console.warn('Supabase not configured, cannot delete API key');
+      return;
+    }
+    
     try {
       // Delete from Supabase
       const { error } = await supabase
@@ -199,6 +206,11 @@ export default function Dashboard() {
   // Save API key (add or update) to Supabase
   const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    if (!isSupabaseConfigured()) {
+      console.warn('Supabase not configured, cannot save API key');
+      return;
+    }
     
     try {
       if (isEdit && editingKeyId !== null) {
