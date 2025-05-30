@@ -1,6 +1,6 @@
 # API-Master: Modern API Key Management Dashboard
 
-![API-Master Banner](https://github.com/RajaOjha98/API-Master/raw/master/public/api-master-banner.png)
+![API-Master Banner](https://github.com/RajaOjha98/API-Master/blob/master/public/api-master-banner.png)
 
 API-Master is a modern, responsive web application for managing API keys with comprehensive tracking and security features. Built with Next.js, TypeScript, and Supabase, it provides a streamlined interface for creating, monitoring, and managing API keys across your organization or personal projects.
 
