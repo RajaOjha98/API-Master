@@ -6,11 +6,10 @@ import { Header } from "@/components/dashboard/Header";
 import { ApiKeyTable } from "@/components/dashboard/ApiKeyTable";
 import { ApiKeyModal } from "@/components/dashboard/ApiKeyModal";
 import { Notifications } from "@/components/dashboard/Notifications";
-import { SupabaseDebug } from "@/components/debug/SupabaseDebug";
-import { SupabaseError } from "@/components/error/SupabaseError";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { apiKeyService } from "@/services/apiKeyService";
 import { useAnalytics } from "@/context/AnalyticsContext";
+import { logSupabaseDebug } from "@/utils/supabaseDebug";
 
 // Define ApiKey type to match what's in your components
 interface ApiKey {
@@ -60,6 +59,9 @@ export default function Dashboard() {
 
   React.useEffect(() => {
     fetchApiKeys();
+    
+    // Debug Supabase connection on mount
+    logSupabaseDebug();
     
     // Test Supabase connection only if properly configured
     if (isSupabaseConfigured()) {
@@ -343,9 +345,6 @@ export default function Dashboard() {
       
       {/* Main content - doesn't shift with sidebar */}
       <main className="flex-1 p-4 sm:p-6 md:p-8">
-        {/* Supabase Error Message */}
-        <SupabaseError />
-        
         {/* Header */}
         <Header handleAdd={handleAdd} />
         
@@ -387,9 +386,6 @@ export default function Dashboard() {
         showUpdateNotification={showUpdateNotification}
         showDeleteNotification={showDeleteNotification}
       />
-      
-      {/* Debug component for diagnosing Supabase issues */}
-      <SupabaseDebug />
     </div>
   );
 }

@@ -25,12 +25,34 @@ export const apiKeyService = {
       
       if (error) {
         console.error('Error fetching API keys:', error);
+        
+        // Check for specific RLS policy errors
+        if (error.message.includes('Row Level Security')) {
+          console.error('RLS Policy Error: The database table may have incorrect Row Level Security policies.');
+          console.error('Solution: Run the updated SQL script from scripts/supabase_schema.sql');
+        }
+        
+        // Check for permission errors
+        if (error.message.includes('permission denied') || error.message.includes('insufficient_privilege')) {
+          console.error('Permission Error: Anonymous access may not be granted to the api_keys table.');
+          console.error('Solution: Ensure RLS policies allow anonymous access or grant proper permissions.');
+        }
+        
         throw error;
       }
       
+      console.log(`Successfully fetched ${data?.length || 0} API keys`);
       return data || [];
     } catch (err) {
       console.error('Exception in getAllApiKeys:', err);
+      
+      // Provide helpful error context
+      if (err instanceof Error) {
+        if (err.message.includes('Failed to fetch')) {
+          console.error('Network Error: Could not connect to Supabase. Check your internet connection and Supabase URL.');
+        }
+      }
+      
       throw err;
     }
   },

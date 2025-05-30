@@ -7,7 +7,7 @@ This guide explains how to deploy API-Master to Vercel and other platforms.
 ### Prerequisites
 
 1. **Supabase Project**: Create a Supabase project at [supabase.com](https://supabase.com)
-2. **Database Setup**: Run the SQL script from `scripts/supabase_schema_public.sql` in your Supabase SQL Editor for demo deployment, or `scripts/supabase_schema.sql` for production with authentication
+2. **Database Setup**: Run the SQL script from `scripts/supabase_schema.sql` in your Supabase SQL Editor
 
 ### Environment Variables
 
@@ -51,30 +51,75 @@ This error occurs when environment variables are not properly set. To fix:
 2. **Redeploy**: After setting environment variables, trigger a new deployment
 3. **Verify Values**: Make sure the Supabase URL and key are correct and valid
 
+#### App Loads but Shows "0 API Keys" (RLS Policy Issue)
+
+This is the most common issue on Vercel deployments. The app loads but shows no data because of Row Level Security (RLS) policy restrictions.
+
+**Symptoms:**
+- App loads successfully on Vercel
+- Dashboard shows "0 API Keys" 
+- Analytics cards show all zeros
+- Browser console shows permission or RLS errors
+
+**Root Cause:**
+The default RLS policy only allows `authenticated` users, but the app uses anonymous access.
+
+**Solution - Update Database Policies:**
+
+1. **Go to Supabase SQL Editor**
+   - Open your Supabase project dashboard
+   - Navigate to SQL Editor
+
+2. **Run the Updated Schema**
+   - Copy the contents of `scripts/supabase_schema.sql` 
+   - Execute the entire script in the SQL Editor
+   - This will:
+     - Drop and recreate the table with proper permissions
+     - Add RLS policies for anonymous users
+     - Grant necessary permissions to the `anon` role
+     - Insert sample data with proper API key format
+
+3. **Verify the Fix**
+   - Check that policies exist: Go to Authentication > Policies
+   - You should see: "Anonymous users can perform all operations"
+   - Test your Vercel deployment - data should now load
+
+**Manual Policy Fix (Alternative):**
+If you prefer to manually fix policies without recreating the table:
+
+```sql
+-- Drop existing restrictive policy
+DROP POLICY IF EXISTS "Authenticated users can perform all operations" ON api_keys;
+
+-- Create policy for anonymous users
+CREATE POLICY "Anonymous users can perform all operations" 
+  ON api_keys 
+  FOR ALL 
+  TO anon 
+  USING (true)
+  WITH CHECK (true);
+
+-- Grant permissions
+GRANT ALL ON api_keys TO anon;
+GRANT USAGE ON SEQUENCE api_keys_id_seq TO anon;
+```
+
 #### Missing Database Tables
 
 If the app loads but shows no data:
 
-1. **Run Database Schema**: 
-   - For **demo/public access**: Execute `scripts/supabase_schema_public.sql`
-   - For **production with auth**: Execute `scripts/supabase_schema.sql`
+1. **Run Database Schema**: Execute the SQL script from `scripts/supabase_schema.sql`
 2. **Check RLS Policies**: Ensure Row Level Security policies are properly configured
 3. **Verify Connection**: Check browser console for Supabase connection errors
-4. **Use Debug Mode**: Add `?debug=true` to the URL to see detailed diagnostic information
 
-#### Database Schema Options
+#### Debugging Connection Issues
 
-**Option 1: Public Demo Schema** (`scripts/supabase_schema_public.sql`)
-- Allows public access without authentication
-- Perfect for demos and testing
-- Sample data included with proper MSTR- prefixed keys
-- **Security Note**: Only use for demo purposes
-
-**Option 2: Authenticated Schema** (`scripts/supabase_schema.sql`)
-- Requires user authentication
-- Better for production use
-- Implements proper Row Level Security (RLS)
-- More secure but requires additional authentication setup
+The app includes built-in debug utilities. Check your browser console for:
+- 🔍 Supabase Debug Information
+- Environment variable validation
+- Connection test results
+- Table access verification
+- Specific error messages with solutions
 
 ### Alternative Deployment Platforms
 

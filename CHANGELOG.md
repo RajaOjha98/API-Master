@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Project changelog for tracking changes
 - Deployment guide (DEPLOYMENT.md) with Vercel setup instructions
 - Build-time protection for Supabase client initialization
+- Supabase debug utility for troubleshooting connection issues
+- Enhanced error handling with specific RLS policy guidance
+- Troubleshooting section in README for common deployment issues
 
 ### Changed
 - Updated package.json project name from "cursor_app_1" to "api-master"
@@ -26,10 +29,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - **Critical**: Fixed Vercel deployment build error "supabaseUrl is required"
+- **Critical**: Fixed Vercel deployment showing "0 API Keys" due to RLS policy restrictions
 - Added client-side checks to prevent server-side Supabase calls
 - Protected all Supabase operations with configuration validation
 - Removed deprecated swcMinify option from Next.js config
 - Added proper environment variable handling for deployment
+- Updated database schema with proper RLS policies for anonymous access
+- Fixed permission issues preventing data access on production deployments
 
 ### Documentation
 - Added comprehensive technical analysis document

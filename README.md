@@ -23,6 +23,7 @@ API-Master is a modern, responsive web application for managing API keys with co
 - [Analytics System](#analytics-system)
 - [Responsive Design](#responsive-design)
 - [Security Features](#security-features)
+- [Troubleshooting](#troubleshooting)
 - [Project Analysis](#project-analysis)
 - [Deployment](#deployment)
 - [Future Enhancements](#future-enhancements)
@@ -162,6 +163,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 2. Set up the database schema by running the SQL script in Supabase:
    - Navigate to Supabase SQL Editor
    - Execute the contents of `scripts/supabase_schema.sql`
+   - **Important**: This script includes proper Row Level Security (RLS) policies for anonymous access
 
 3. Start the development server:
 
@@ -354,6 +356,24 @@ Supabase RLS policies ensure that users can only access their own data.
 ### Key Validation
 
 The API Playground validates keys and increments usage counts before granting access to protected resources.
+
+## Troubleshooting
+
+### Vercel Deployment Shows "0 API Keys"
+
+If your Vercel deployment loads but shows no data (0 API Keys), this is likely due to Row Level Security (RLS) policy restrictions in Supabase.
+
+**Quick Fix:**
+1. Go to your Supabase project's SQL Editor
+2. Run the updated `scripts/supabase_schema.sql` script
+3. This will create proper RLS policies that allow anonymous access
+
+**Why this happens:**
+- The app uses anonymous access (not user authentication)
+- Default RLS policies often only allow authenticated users
+- Vercel deployment uses the `anon` role which needs explicit permissions
+
+For detailed troubleshooting steps, see [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## Project Analysis
 
