@@ -23,6 +23,7 @@ API-Master is a modern, responsive web application for managing API keys with co
 - [Analytics System](#analytics-system)
 - [Responsive Design](#responsive-design)
 - [Security Features](#security-features)
+- [Project Analysis](#project-analysis)
 - [Deployment](#deployment)
 - [Future Enhancements](#future-enhancements)
 - [Contributing](#contributing)
@@ -140,7 +141,7 @@ A demonstration of key-based access control:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/api-master.git
+git clone https://github.com/RajaOjha98/API-Master.git
 cd api-master
 
 # Install dependencies
@@ -353,6 +354,22 @@ Supabase RLS policies ensure that users can only access their own data.
 ### Key Validation
 
 The API Playground validates keys and increments usage counts before granting access to protected resources.
+
+## Project Analysis
+
+For a comprehensive technical analysis of the API-Master project, including detailed architecture diagrams, code metrics, and recommendations, please refer to the [API-MASTER_ANALYSIS.md](API-MASTER_ANALYSIS.md) file.
+
+The analysis document includes:
+
+- **Software Architecture Analysis**: Complete system architecture with Mermaid diagrams
+- **Developer Analysis**: Code structure, patterns, and best practices
+- **Product Manager Analysis**: Feature analysis and business value assessment
+- **Technical Deep Dive**: Component relationships and data flow
+- **Security Assessment**: Security features and implementation details
+- **Performance Analysis**: Performance metrics and optimization opportunities
+- **Scalability Considerations**: Growth planning and architecture scaling
+
+This document provides valuable insights for developers, architects, and product managers who want to understand the project's technical foundation and future roadmap.
 
 ## Deployment
 
