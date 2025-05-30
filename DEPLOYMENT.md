@@ -7,7 +7,7 @@ This guide explains how to deploy API-Master to Vercel and other platforms.
 ### Prerequisites
 
 1. **Supabase Project**: Create a Supabase project at [supabase.com](https://supabase.com)
-2. **Database Setup**: Run the SQL script from `scripts/supabase_schema.sql` in your Supabase SQL Editor
+2. **Database Setup**: Run the SQL script from `scripts/supabase_schema_public.sql` in your Supabase SQL Editor for demo deployment, or `scripts/supabase_schema.sql` for production with authentication
 
 ### Environment Variables
 
@@ -55,9 +55,26 @@ This error occurs when environment variables are not properly set. To fix:
 
 If the app loads but shows no data:
 
-1. **Run Database Schema**: Execute the SQL script from `scripts/supabase_schema.sql`
+1. **Run Database Schema**: 
+   - For **demo/public access**: Execute `scripts/supabase_schema_public.sql`
+   - For **production with auth**: Execute `scripts/supabase_schema.sql`
 2. **Check RLS Policies**: Ensure Row Level Security policies are properly configured
 3. **Verify Connection**: Check browser console for Supabase connection errors
+4. **Use Debug Mode**: Add `?debug=true` to the URL to see detailed diagnostic information
+
+#### Database Schema Options
+
+**Option 1: Public Demo Schema** (`scripts/supabase_schema_public.sql`)
+- Allows public access without authentication
+- Perfect for demos and testing
+- Sample data included with proper MSTR- prefixed keys
+- **Security Note**: Only use for demo purposes
+
+**Option 2: Authenticated Schema** (`scripts/supabase_schema.sql`)
+- Requires user authentication
+- Better for production use
+- Implements proper Row Level Security (RLS)
+- More secure but requires additional authentication setup
 
 ### Alternative Deployment Platforms
 
